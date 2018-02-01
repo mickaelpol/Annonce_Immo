@@ -3,11 +3,12 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * TypeAnnonce
  *
- * @ORM\Table(name="type_annonce")
+ * @ORM\Table(name="typ_type_annonce")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\TypeAnnonceRepository")
  */
 class TypeAnnonce
@@ -15,7 +16,7 @@ class TypeAnnonce
     /**
      * @var int
      *
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(name="typ_oid", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
@@ -24,10 +25,25 @@ class TypeAnnonce
     /**
      * @var string
      *
-     * @ORM\Column(name="nom", type="string", length=255)
+     * @ORM\Column(name="typ_nom", type="string", length=255)
      */
     private $nom;
 
+
+    /**
+     * One TypeAnnonce has Many Annonces.
+     * @ORM\OneToMany(targetEntity="Annonce", mappedBy="typeAnnonce")
+     */
+    private $annonces;
+
+    public function __construct()
+    {
+        $this->annonces = new ArrayCollection();
+    }
+    public function __toString()
+    {
+        return $this->nom;
+    }
 
     /**
      * Get id
@@ -62,5 +78,38 @@ class TypeAnnonce
     {
         return $this->nom;
     }
-}
 
+    /**
+     * Add annonce
+     *
+     * @param \AppBundle\Entity\Annonce $annonce
+     *
+     * @return TypeAnnonce
+     */
+    public function addAnnonce(\AppBundle\Entity\Annonce $annonce)
+    {
+        $this->annonces[] = $annonce;
+
+        return $this;
+    }
+
+    /**
+     * Remove annonce
+     *
+     * @param \AppBundle\Entity\Annonce $annonce
+     */
+    public function removeAnnonce(\AppBundle\Entity\Annonce $annonce)
+    {
+        $this->annonces->removeElement($annonce);
+    }
+
+    /**
+     * Get annonces
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAnnonces()
+    {
+        return $this->annonces;
+    }
+}

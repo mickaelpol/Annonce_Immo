@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Annonces list</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Titre</th>
+                <th>Pieces</th>
+                <th>Prix</th>
+                <th>Description</th>
+                <th>Type</th>
+                {% if is_granted('ROLE_USER') %}
+                    <th>Actions</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+        {% for annonce in annonces %}
+            <tr>
+                <td><a href="{{ path('admin_annonce_show', { 'id': annonce.id }) }}">{{ annonce.titre }}</a></td>
+                <td>{{ annonce.pieces }}</td>
+                <td>{{ annonce.prix }}</td>
+                <td>{{ annonce.description }}</td>
+                <td>{{ annonce.typeAnnonce }}</td>
+                <td>
+
+                    {% if is_granted('ROLE_USER') %}
+                        <ul>
+                            <li>
+                                <a href="{{ path('admin_annonce_edit', { 'id': annonce.id }) }}">edit</a>
+                            </li>
+                        </ul>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    
+{% endblock %}

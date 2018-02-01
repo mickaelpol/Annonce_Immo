@@ -3,11 +3,12 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Client
  *
- * @ORM\Table(name="client")
+ * @ORM\Table(name="cli_client")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ClientRepository")
  */
 class Client
@@ -15,7 +16,7 @@ class Client
     /**
      * @var int
      *
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(name="cli_oid", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
@@ -24,23 +25,39 @@ class Client
     /**
      * @var string
      *
-     * @ORM\Column(name="nom", type="string", length=255)
+     * @ORM\Column(name="cli_nom", type="string", length=255)
      */
     private $nom;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="prenom", type="string", length=255)
+     * @ORM\Column(name="cli_prenom", type="string", length=255)
      */
     private $prenom;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="telephone", type="string", length=255, unique=true)
+     * @ORM\Column(name="cli_telephone", type="string", length=255, unique=true)
      */
     private $telephone;
+
+    /**
+     * One Client has Many Annonce.
+     * @ORM\OneToMany(targetEntity="Annonce", mappedBy="client")
+     */
+    private $annonces;
+
+    public function __construct()
+    {
+        $this->annonces = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->nom ." " . $this->prenom;
+    }
 
 
     /**
@@ -124,5 +141,38 @@ class Client
     {
         return $this->telephone;
     }
-}
 
+    /**
+     * Add annonce
+     *
+     * @param \AppBundle\Entity\Annonce $annonce
+     *
+     * @return Client
+     */
+    public function addAnnonce(\AppBundle\Entity\Annonce $annonce)
+    {
+        $this->annonces[] = $annonce;
+
+        return $this;
+    }
+
+    /**
+     * Remove annonce
+     *
+     * @param \AppBundle\Entity\Annonce $annonce
+     */
+    public function removeAnnonce(\AppBundle\Entity\Annonce $annonce)
+    {
+        $this->annonces->removeElement($annonce);
+    }
+
+    /**
+     * Get annonces
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAnnonces()
+    {
+        return $this->annonces;
+    }
+}

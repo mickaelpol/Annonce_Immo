@@ -1,0 +1,47 @@
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="{{ path('homepage') }}">Annonce Immo</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="active">
+                <a href="{{ path('homepage') }}">Accueil</a>
+            </li>
+            <li>
+                <a href="{{ path('admin_annonce_index') }}">Liste des annonces</a>
+            </li>
+            {% if is_granted('ROLE_ADMIN') %}
+                <li>
+                    <a href="{{ path('admin_annonce_new') }}">Ajouter une annonce</a>
+                </li>
+                <li>
+                    <a href="{{ path('admin_client_new') }}">Ajouter un client</a>
+                </li>
+                <li>
+                    <a href="{{ path('admin_type-annonce_index') }}">Liste des type d'annonce</a>
+                </li>
+            {% endif %}
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <form class="navbar-form navbar-left" action="/action_page.php">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Search">
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+            
+            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                <li>
+                    <a href="{{ path('fos_user_security_logout') }}">
+                        <span class="glyphicon glyphicon-off"></span> Log out</a>
+                </li>
+            {% else %}
+                <li>
+                    <a href="{{ path('fos_user_security_login') }}">
+                        <span class="glyphicon glyphicon-log-in"></span> LogIn</a>
+                </li>
+            {% endif %}
+            
+        </ul>
+    </div>
+</nav>
