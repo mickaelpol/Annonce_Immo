@@ -3,6 +3,9 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * Annonce
@@ -35,6 +38,25 @@ class Annonce
      */
     private $photo;
 
+    /**
+     * 
+     * @var file
+     * 
+     * @Vich\UploadableField(mapping="photo", fileNameProperty="image")
+     * 
+     */
+    private $photoFile;
+
+
+    /**
+     * @var \DateTime
+     * 
+     * @ORM\Column(type="datetime", nullable=true)
+     * 
+     */
+    private $updateAt;
+
+    
     /**
      * @var int
      *
@@ -76,6 +98,7 @@ class Annonce
      * @ORM\JoinColumn(name="typ_oid", referencedColumnName="typ_oid")
      */
     private $typeAnnonce;
+
 
 
     /**
@@ -206,5 +229,77 @@ class Annonce
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Set client
+     *
+     * @param \AppBundle\Entity\Client $client
+     *
+     * @return Annonce
+     */
+    public function setClient(\AppBundle\Entity\Client $client = null)
+    {
+        $this->client = $client;
+
+        return $this;
+    }
+
+    /**
+     * Get client
+     *
+     * @return \AppBundle\Entity\Client
+     */
+    public function getClient()
+    {
+        return $this->client;
+    }
+
+    /**
+     * Set admin
+     *
+     * @param \AppBundle\Entity\Admin $admin
+     *
+     * @return Annonce
+     */
+    public function setAdmin(\AppBundle\Entity\Admin $admin = null)
+    {
+        $this->admin = $admin;
+
+        return $this;
+    }
+
+    /**
+     * Get admin
+     *
+     * @return \AppBundle\Entity\Admin
+     */
+    public function getAdmin()
+    {
+        return $this->admin;
+    }
+
+    /**
+     * Set typeAnnonce
+     *
+     * @param \AppBundle\Entity\TypeAnnonce $typeAnnonce
+     *
+     * @return Annonce
+     */
+    public function setTypeAnnonce(\AppBundle\Entity\TypeAnnonce $typeAnnonce = null)
+    {
+        $this->typeAnnonce = $typeAnnonce;
+
+        return $this;
+    }
+
+    /**
+     * Get typeAnnonce
+     *
+     * @return \AppBundle\Entity\TypeAnnonce
+     */
+    public function getTypeAnnonce()
+    {
+        return $this->typeAnnonce;
     }
 }

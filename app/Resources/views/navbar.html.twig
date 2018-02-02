@@ -7,20 +7,50 @@
             <li class="active">
                 <a href="{{ path('homepage') }}">Accueil</a>
             </li>
-            <li>
-                <a href="{{ path('admin_annonce_index') }}">Liste des annonces</a>
+            {% if is_granted('ROLE_USER') %}
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Annonce
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                        <li>
+                            <a href="{{ path('admin_annonce_new') }}">Ajouter une annonce</a>
+                        </li>
+                    {% endif %}
+                </ul>
             </li>
-            {% if is_granted('ROLE_ADMIN') %}
-                <li>
-                    <a href="{{ path('admin_annonce_new') }}">Ajouter une annonce</a>
+            {% if is_granted('ROLE_USER') %}
+                
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Client
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="{{ path('admin_client_index') }}">Consulter la liste des clients</a>
+                        </li>
+                            <li>
+                                <a href="{{ path('admin_client_new') }}">Ajouter un client</a>
+                            </li>
+                    </ul>
                 </li>
-                <li>
-                    <a href="{{ path('admin_client_new') }}">Ajouter un client</a>
+                
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Type d'annonce
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="{{ path('admin_type-annonce_index') }}">Consulter les typesd'annonce</a>
+                        </li>
+                            <li>
+                                <a href="{{ path('admin_type-annonce_new') }}">Ajouter un type d'annonce</a>
+                            </li>
+                    </ul>
                 </li>
-                <li>
-                    <a href="{{ path('admin_type-annonce_index') }}">Liste des type d'annonce</a>
-                </li>
+
             {% endif %}
+
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <form class="navbar-form navbar-left" action="/action_page.php">

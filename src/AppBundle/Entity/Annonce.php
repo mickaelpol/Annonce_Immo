@@ -3,12 +3,16 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * Annonce
  *
  * @ORM\Table(name="ann_annonce")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\AnnonceRepository")
+ * @Vich\Uploadable
  */
 class Annonce
 {
@@ -32,9 +36,29 @@ class Annonce
      * @var string
      *
      * @ORM\Column(name="ann_photo", type="string", length=255)
+     * 
      */
     private $photo;
 
+    /**
+     * 
+     * @Vich\UploadableField(mapping="product_images", fileNameProperty="photo")
+     * 
+     * @var file
+     * 
+     */
+    private $photoFile;
+
+
+    /**
+     * @var \DateTime
+     * 
+     * @ORM\Column(type="datetime", nullable=true)
+     * 
+     */
+    private $updateAt;
+
+    
     /**
      * @var int
      *
@@ -135,6 +159,23 @@ class Annonce
     public function getPhoto()
     {
         return $this->photo;
+    }
+
+
+    /**
+     * 
+     * @param File $image
+     */
+    public function setPhotoFile(File $photo = null)
+    {
+        $this->photoFile = $photo;
+        if ($photo) {
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+    public function getPhotoFile()
+    {
+        return $this->photoFile;
     }
 
     /**
@@ -279,5 +320,29 @@ class Annonce
     public function getTypeAnnonce()
     {
         return $this->typeAnnonce;
+    }
+
+    /**
+     * Set updateAt
+     *
+     * @param \DateTime $updateAt
+     *
+     * @return Annonce
+     */
+    public function setUpdateAt($updateAt)
+    {
+        $this->updateAt = $updateAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updateAt
+     *
+     * @return \DateTime
+     */
+    public function getUpdateAt()
+    {
+        return $this->updateAt;
     }
 }

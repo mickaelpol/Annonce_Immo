@@ -3,6 +3,11 @@
 {% block body %}
     <h1>Annonce</h1>
 
+    <div class="row center-block">
+        <img src="{{ asset('uploads/images/products/' ~ annonce.photo) | imagine_filter('my_thumb') }}" />
+    </div>
+    {% dump(annonce) %}
+    
     <table class="table">
         <tbody>
             <tr>
@@ -12,10 +17,6 @@
             <tr>
                 <th>Titre</th>
                 <td>{{ annonce.titre }}</td>
-            </tr>
-            <tr>
-                <th>Photo</th>
-                <td>{{ annonce.photo }}</td>
             </tr>
             <tr>
                 <th>Pieces</th>

@@ -3,6 +3,16 @@
 {% block body %}
     <h1>Annonces list</h1>
 
+    <div class="row">
+        <ul>
+        {% if is_granted('ROLE_USER') %}
+            <li>
+                <a href="{{ path('admin_annonce_new') }}">create</a>
+            </li>
+        </ul>
+        {% endif %}
+    </div>
+
     <table class="table">
         <thead>
             <tr>
@@ -25,13 +35,10 @@
                 <td>{{ annonce.description }}</td>
                 <td>{{ annonce.typeAnnonce }}</td>
                 <td>
-
                     {% if is_granted('ROLE_USER') %}
-                        <ul>
-                            <li>
-                                <a href="{{ path('admin_annonce_edit', { 'id': annonce.id }) }}">edit</a>
-                            </li>
-                        </ul>
+                        <li>
+                            <a href="{{ path('admin_annonce_edit', { 'id': annonce.id }) }}">edit</a>
+                        </li>
                     {% endif %}
                 </td>
             </tr>
