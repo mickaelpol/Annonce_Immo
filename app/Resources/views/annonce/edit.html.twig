@@ -1,21 +1,79 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Annonce edit</h1>
 
-    {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
-    {{ form_end(edit_form) }}
+    <div class="row">
+        <h1 class="text-center text-uppercase">Edition de l'annonce {{ annonce.id }}</h1>
+    </div>
 
-    <ul>
-        <li>
-            <a href="{{ path('admin_annonce_index') }}">Back to the list</a>
-        </li>
-        <li>
+    <div style="height:60px;"></div>
+
+    <div class="row">
+        {{ form_start(edit_form) }}
+        
+    
+        <div class="col-lg-5">
+            <h3 class="text-center page-header">Annonce</h3>
+            
+            
+            {{ form_label(edit_form.titre) }}
+            {{ form_widget(edit_form.titre, {'attr': {"class": "form-control" }}) }}
+            
+            {{ form_label(edit_form.pieces) }}
+            {{ form_widget(edit_form.pieces, {'attr': {"class": "form-control" }}) }}
+            
+            {{ form_label(edit_form.prix) }}
+            {{ form_widget(edit_form.prix, {'attr': {"class": "form-control" }}) }}
+            
+            {{ form_label(edit_form.description) }}
+            {{ form_widget(edit_form.description, {'attr': {"class": "form-control" }}) }}
+            
+            {{ form_label(edit_form.typeAnnonce) }}
+            {{ form_widget(edit_form.typeAnnonce, {'attr': {"class": "form-control" }}) }}
+            
+            {{ form_widget(edit_form.files) }}
+
+        </div>
+        
+        <div class="col-lg-5 col-lg-offset-2">
+            <h3 class="text-center page-header">client</h3>
+
+            {{ form_label(edit_form.client.nom) }}
+            {{ form_widget(edit_form.client.nom, {'attr': {"class": "form-control" }}) }}
+            
+            {{ form_label(edit_form.client.prenom) }}
+            {{ form_widget(edit_form.client.prenom, {'attr': {"class": "form-control" }}) }}
+            
+            {{ form_label(edit_form.client.telephone) }}
+            {{ form_widget(edit_form.client.telephone, {'attr': {"class": "form-control" }}) }}
+
+        </div>
+    </div>
+
+    <div style="height:20px;"></div>
+    
+    <div class="row">
+        <div class="col-lg-5">
+            <input class="btn btn-block btn-success" type="submit" value="Editer" />
+        </div>
+        <div class="col-lg-5">
             {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
+            <button class="btn btn-danger btn-block" type="submit">
+                <span class="glyphicon glyphicon-trash"></span>
+                Supprimer l'annonce
+            </button>
             {{ form_end(delete_form) }}
-        </li>
-    </ul>
-{% endblock %}
+        </div>
+    </div>
+
+    <div style="height:60px;"></div>
+
+    <div class="row">
+        <div class="col-lg-5">
+            <a class="btn btn-default btn-md" href="{{ path('admin_annonce_index') }}">
+                <span class="glyphicon glyphicon-arrow-left"></span>
+                Retour a la liste des annonces
+            </a>
+        </div>
+    </div>
+    {% endblock %}

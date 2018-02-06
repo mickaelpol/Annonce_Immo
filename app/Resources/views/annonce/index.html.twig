@@ -1,22 +1,23 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Annonces list</h1>
-
     <div class="row">
-        <ul>
+        <h1 class="text-center text-uppercase">Annonces list</h1>
+    </div>
+    <div style="height:80px;"></div>
+    <div class="row">
         {% if is_granted('ROLE_USER') %}
-            <li>
-                <a href="{{ path('admin_annonce_new') }}">create</a>
-            </li>
-        </ul>
+            <a class="btn btn-block btn-success" href="{{ path('admin_annonce_new') }}">Creer une annonce</a>
         {% endif %}
     </div>
 
+    <div style="height:80px;"></div>
+    
     <table class="table">
         <thead>
             <tr>
                 <th>Titre</th>
+                <th>Photo</th>
                 <th>Pieces</th>
                 <th>Prix</th>
                 <th>Description</th>
@@ -30,20 +31,29 @@
         {% for annonce in annonces %}
             <tr>
                 <td><a href="{{ path('admin_annonce_show', { 'id': annonce.id }) }}">{{ annonce.titre }}</a></td>
+                <td>
+                {% for image in annonce.files %}
+                    {% if loop.first %}
+                        {% set runtimeConfig = {"thumbnail": {"size": [150, 100] }} %}
+                        <img alt="{{ image.nom }}" src="{{ asset('uploads/images/products/' ~ image.file) | imagine_filter('my_thumb', runtimeConfig) }}" />
+                        {% dump(image) %}
+                    {% endif %}
+                {% endfor %}
+                </td>
                 <td>{{ annonce.pieces }}</td>
                 <td>{{ annonce.prix }}</td>
                 <td>{{ annonce.description }}</td>
                 <td>{{ annonce.typeAnnonce }}</td>
                 <td>
                     {% if is_granted('ROLE_USER') %}
-                        <li>
-                            <a href="{{ path('admin_annonce_edit', { 'id': annonce.id }) }}">edit</a>
-                        </li>
+                        <a class="btn btn-block btn-warning" href="{{ path('admin_annonce_edit', { 'id': annonce.id }) }}">edit</a>
                     {% endif %}
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
+
+    <div style="height:80px;"></div>
     
 {% endblock %}

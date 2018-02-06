@@ -1,40 +1,64 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Client</h1>
+    <div class="row">
+        <h1 class="text-center text-uppercase page-header">Client</h1>
+    </div>
 
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ client.id }}</td>
-            </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ client.nom }}</td>
-            </tr>
-            <tr>
-                <th>Prenom</th>
-                <td>{{ client.prenom }}</td>
-            </tr>
-            <tr>
-                <th>Telephone</th>
-                <td>{{ client.telephone }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div style="height:80px;"></div>
+    
+    <div class="row">
+        <table class="table table-bordered table-hover">
+            <tbody>
+                <tr>
+                    <th class="text-center">Id</th>
+                    <th class="text-center">Nom</th>
+                    <th class="text-center">Prenom</th>
+                    <th class="text-center">Telephone</th>
+                </tr>
+                <tr>
+                    <td class="text-center">{{ client.id }}</td>
+                    <td class="text-center">{{ client.nom }}</td>
+                    <td class="text-center">{{ client.prenom }}</td>
+                    <td class="text-center">{{ client.telephone }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
-    <ul>
-        <li>
-            <a href="{{ path('admin_client_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('admin_client_edit', { 'id': client.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+    <div class="row">
+        <ul class="list-unstyled">
+            <div class="col-lg-4">
+                <li>
+                    <a class="btn btn-default btn-block" href="{{ path('admin_client_index') }}">
+                        <span class="glyphicon glyphicon-arrow-left"></span>
+                        Retour a la liste des clients
+                    </a>
+                </li>
+            </div>
+            {% if is_granted('ROLE_USER') %}
+            <div class="col-lg-4">
+                <li>
+                    <a class="btn btn-warning btn-block" href="{{ path('admin_client_edit', { 'id': client.id }) }}">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                        Editer
+                    </a>
+                </li>
+            </div>
+            <div class="col-lg-4">
+                <li>
+                    {{ form_start(delete_form) }}
+                    <button class="btn btn-danger btn-block" type="submit">
+                        <span class="glyphicon glyphicon-trash"></span>
+                        Supprimer le client
+                    </button>
+                    {{ form_end(delete_form) }}
+                </li>
+            </div>
+            {% endif %}
+        </ul>
+    </div>
+
+    <div style="height:80px;"></div>
+    
 {% endblock %}

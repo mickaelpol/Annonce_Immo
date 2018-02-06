@@ -50,6 +50,11 @@ class Admin extends BaseUser
         $this->annonces = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->username . " " . $this->prenom;
+    }
+
     
 
 
@@ -110,5 +115,39 @@ class Admin extends BaseUser
     public function getTelephone()
     {
         return $this->telephone;
+    }
+
+    /**
+     * Add annonce
+     *
+     * @param \AppBundle\Entity\Annonce $annonce
+     *
+     * @return Admin
+     */
+    public function addAnnonce(\AppBundle\Entity\Annonce $annonce)
+    {
+        $this->annonces[] = $annonce;
+
+        return $this;
+    }
+
+    /**
+     * Remove annonce
+     *
+     * @param \AppBundle\Entity\Annonce $annonce
+     */
+    public function removeAnnonce(\AppBundle\Entity\Annonce $annonce)
+    {
+        $this->annonces->removeElement($annonce);
+    }
+
+    /**
+     * Get annonces
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAnnonces()
+    {
+        return $this->annonces;
     }
 }

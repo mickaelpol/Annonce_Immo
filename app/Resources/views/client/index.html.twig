@@ -1,43 +1,47 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Clients list</h1>
+    <div class="row">
+        <h1 class="text-center text-uppercase page-header">Clients list</h1>
+    </div>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Prenom</th>
-                <th>Telephone</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for client in clients %}
-            <tr>
-                <td><a href="{{ path('admin_client_show', { 'id': client.id }) }}">{{ client.id }}</a></td>
-                <td>{{ client.nom }}</td>
-                <td>{{ client.prenom }}</td>
-                <td>{{ client.telephone }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('admin_client_show', { 'id': client.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('admin_client_edit', { 'id': client.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <div style="height:80px;"></div>
+    
+    <div class="row">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th class="text-center">Ref Client</th>
+                    <th class="text-center">Nom</th>
+                    <th class="text-center">Prenom</th>
+                    <th class="text-center">Telephone</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for client in clients %}
+                <tr>
+                    <td class="text-center">{{ client.id }}</td>
+                    <td class="text-center">{{ client.nom }}</td>
+                    <td class="text-center">{{ client.prenom }}</td>
+                    <td class="text-center">{{ client.telephone }}</td>
+                    <td class="text-center">
+                        <a class="btn btn-block btn-info" href="{{ path('admin_client_show', { 'id': client.id }) }}">Profil</a>
+                        <a class="btn btn-block btn-warning" href="{{ path('admin_client_edit', { 'id': client.id }) }}">Editer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
-    <ul>
-        <li>
-            <a href="{{ path('admin_client_new') }}">Create a new client</a>
-        </li>
-    </ul>
+    <div class="row">
+        <div class="col-lg-5">
+            <a class="btn btn-success btn-block" href="{{ path('admin_client_new') }}">Creer un nouveau client</a>
+        </div>
+    </div>
+
+    <div style="height:80px;"></div>
+    
+    
 {% endblock %}

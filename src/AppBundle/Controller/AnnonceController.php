@@ -48,8 +48,11 @@ class AnnonceController extends Controller
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
+                
                 $em = $this->getDoctrine()->getManager();
+                $admin = $this->container->get('security.token_storage')->getToken()->getUser();
                 $em->persist($annonce);
+                $annonce->setAdmin($admin);
                 $em->flush();
 
                 return $this->redirectToRoute('admin_annonce_show', array('id' => $annonce->getId()));

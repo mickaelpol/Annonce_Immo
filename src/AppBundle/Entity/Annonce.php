@@ -3,9 +3,14 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\File;
-use Symfony\Component\Validator\Constraints\DateTime;
+
+
+
+
 
 /**
  * Annonce
@@ -13,13 +18,14 @@ use Symfony\Component\Validator\Constraints\DateTime;
  * @ORM\Table(name="ann_annonce")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\AnnonceRepository")
  * @Vich\Uploadable
+
  */
 class Annonce
 {
     /**
      * @var int
      *
-     * @ORM\Column(name="ann_oid", type="integer")
+     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
@@ -31,32 +37,6 @@ class Annonce
      * @ORM\Column(name="ann_titre", type="string", length=255)
      */
     private $titre;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="ann_photo", type="string", length=255)
-     * 
-     */
-    private $photo;
-
-    /**
-     * 
-     * @Vich\UploadableField(mapping="product_images", fileNameProperty="photo")
-     * 
-     * @var file
-     * 
-     */
-    private $photoFile;
-
-
-    /**
-     * @var \DateTime
-     * 
-     * @ORM\Column(type="datetime", nullable=true)
-     * 
-     */
-    private $updateAt;
 
     
     /**
@@ -82,7 +62,7 @@ class Annonce
 
     /**
      * Many Annonce have One Client.
-     * @ORM\ManyToOne(targetEntity="Client", inversedBy="annonces")
+     * @ORM\ManyToOne(targetEntity="Client", inversedBy="annonces", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="cli_oid", referencedColumnName="cli_oid")
      */
     private $client;
@@ -101,12 +81,41 @@ class Annonce
      */
     private $typeAnnonce;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Photo", cascade={"persist", "remove"})
+     */
+    private $files;
+
+    function __construct() {
+        $this->files = new ArrayCollection();
+    }
+
+
+    /**
+     * Get files
+     *
+     * @return ArrayCollection
+     */
+    function getFiles()
+    {
+        return $this->files;
+    }
+
+    /**
+     * Set files
+     * @param type $files
+     */
+    function setFiles($files)
+    {
+        $this->files = $files;
+    }
+
 
 
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -138,47 +147,6 @@ class Annonce
     }
 
     /**
-     * Set photo
-     *
-     * @param string $photo
-     *
-     * @return Annonce
-     */
-    public function setPhoto($photo)
-    {
-        $this->photo = $photo;
-
-        return $this;
-    }
-
-    /**
-     * Get photo
-     *
-     * @return string
-     */
-    public function getPhoto()
-    {
-        return $this->photo;
-    }
-
-
-    /**
-     * 
-     * @param File $image
-     */
-    public function setPhotoFile(File $photo = null)
-    {
-        $this->photoFile = $photo;
-        if ($photo) {
-            $this->updatedAt = new \DateTime('now');
-        }
-    }
-    public function getPhotoFile()
-    {
-        return $this->photoFile;
-    }
-
-    /**
      * Set pieces
      *
      * @param integer $pieces
@@ -195,7 +163,7 @@ class Annonce
     /**
      * Get pieces
      *
-     * @return int
+     * @return integer
      */
     public function getPieces()
     {
@@ -322,27 +290,29 @@ class Annonce
         return $this->typeAnnonce;
     }
 
+    
+
     /**
-     * Set updateAt
+     * Add file
      *
-     * @param \DateTime $updateAt
+     * @param \AppBundle\Entity\Photo $file
      *
      * @return Annonce
      */
-    public function setUpdateAt($updateAt)
+    public function addFile(\AppBundle\Entity\Photo $file)
     {
-        $this->updateAt = $updateAt;
+        $this->files[] = $file;
 
         return $this;
     }
 
     /**
-     * Get updateAt
+     * Remove file
      *
-     * @return \DateTime
+     * @param \AppBundle\Entity\Photo $file
      */
-    public function getUpdateAt()
+    public function removeFile(\AppBundle\Entity\Photo $file)
     {
-        return $this->updateAt;
+        $this->files->removeElement($file);
     }
 }

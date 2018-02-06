@@ -151,6 +151,10 @@ vich_uploader:
             upload_destination: '%kernel.root_dir%/../web/uploads/images/products'
             namer: vich_uploader.namer_uniqid
 
+            inject_on_load:     false
+            delete_on_update:   true
+            delete_on_remove:   true
+
 liip_imagine :
     resolvers :
         default :
@@ -171,6 +175,3 @@ liip_imagine :
                 # create a thumbnail: set size to 500x500 and use the "outbound" mode
                 # to crop the image when the size ratio of the input differs
                 thumbnail  : { size : [900, 500], mode : outbound }
-
-                # create a 2px black border: center the thumbnail on a black background
-                # 4px larger to create a 2px border around the final image

@@ -40,6 +40,10 @@ class TypeAnnonce
     {
         $this->annonces = new ArrayCollection();
     }
+    public function __toString()
+    {
+        return $this->nom;
+    }
 
     /**
      * Get id
@@ -73,5 +77,39 @@ class TypeAnnonce
     public function getNom()
     {
         return $this->nom;
+    }
+
+    /**
+     * Add annonce
+     *
+     * @param \AppBundle\Entity\Annonce $annonce
+     *
+     * @return TypeAnnonce
+     */
+    public function addAnnonce(\AppBundle\Entity\Annonce $annonce)
+    {
+        $this->annonces[] = $annonce;
+
+        return $this;
+    }
+
+    /**
+     * Remove annonce
+     *
+     * @param \AppBundle\Entity\Annonce $annonce
+     */
+    public function removeAnnonce(\AppBundle\Entity\Annonce $annonce)
+    {
+        $this->annonces->removeElement($annonce);
+    }
+
+    /**
+     * Get annonces
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAnnonces()
+    {
+        return $this->annonces;
     }
 }
