@@ -1,39 +1,43 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Typeannonces list</h1>
+    <div class="row">
+        <h1 class="text-center text-uppercase page-header">Clients list</h1>
+    </div>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for typeAnnonce in typeAnnonces %}
-            <tr>
-                <td><a href="{{ path('admin_type-annonce_show', { 'id': typeAnnonce.id }) }}">{{ typeAnnonce.id }}</a></td>
-                <td>{{ typeAnnonce.nom }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('admin_type-annonce_show', { 'id': typeAnnonce.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('admin_type-annonce_edit', { 'id': typeAnnonce.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <div style="height:80px;"></div>
+    
+    <div class="row">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th class="text-center">Ref Type de l'annonce</th>
+                    <th class="text-center">Nom</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for typeAnnonce in typeAnnonces %}
+                <tr>
+                    <td class="text-center">{{ typeAnnonce.id }}</td>
+                    <td class="text-center">{{ typeAnnonce.nom }}</td>
+                    <td class="text-center">
+                        <a class="btn btn-block btn-info" href="{{ path('admin_type-annonce_show', { 'id': typeAnnonce.id }) }}">Voir</a>
+                        <a class="btn btn-block btn-warning" href="{{ path('admin_type-annonce_edit', { 'id': typeAnnonce.id }) }}">Editer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
-    <ul>
-        <li>
-            <a href="{{ path('admin_type-annonce_new') }}">Create a new typeAnnonce</a>
-        </li>
-    </ul>
+    <div class="row">
+        <div class="col-lg-5">
+            <a class="btn btn-success btn-block" href="{{ path('admin_type-annonce_new') }}">Creer un nouveau type d'annonce</a>
+        </div>
+    </div>
+
+    <div style="height:80px;"></div>
+    
+    
 {% endblock %}

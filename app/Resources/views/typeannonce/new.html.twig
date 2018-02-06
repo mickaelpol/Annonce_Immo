@@ -1,16 +1,42 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Typeannonce creation</h1>
+    <div class="row">
+        <h1 class="text-center text-uppercase page-header">Creer un nouveau type d'annonce</h1>
+    </div>
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
+    <div style="height:80px;"></div>
 
-    <ul>
-        <li>
-            <a href="{{ path('admin_type-annonce_index') }}">Back to the list</a>
-        </li>
-    </ul>
+    <div class="row">
+        {{ form_start(form) }}
+    
+    
+            <div class="col-lg-6 col-lg-offset-3">
+                {{ form_label(form.nom) }}
+                {{ form_widget(form.nom, {"attr": {"class": "form-control"}}) }}
+        
+                <div style="height:20px;"></div>
+                
+                <input class="btn btn-success btn-block" type="submit" value="Creer" />
+                
+                <div style="height:20px;"></div>
+                
+            </div>
+        {{ form_end(form) }}
+    </div>
+
+    <div class="row">
+        <div class="col-lg-4 col-lg-offset-3">
+            <ul class="list-unstyled">
+                <li>
+                    <a class="btn btn-default btn-block" href="{{ path('admin_type-annonce_index') }}">
+                        <span class="glyphicon glyphicon-arrow-left"></span>
+                        Retour a la liste des type d'annonces
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div style="height:20px;"></div>
+    
 {% endblock %}
