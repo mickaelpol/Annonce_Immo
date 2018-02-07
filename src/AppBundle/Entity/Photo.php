@@ -30,7 +30,7 @@ class Photo
     /**
      * @var string
      *
-     * @ORM\Column(name="pho_file", type="string", length=255, unique=true)
+     * @ORM\Column(name="pho_file", type="string", length=255, unique=true, nullable=true)
      * @Assert\NotBlank(message="Please, upload the product brochure as a PDF file.")
      * @Assert\File(mimeTypes={ "application/pdf" })
      */
@@ -52,7 +52,7 @@ class Photo
     /**
      * @var string
      *
-     * @ORM\Column(name="pho_nom", type="string", length=255)
+     * @ORM\Column(name="pho_nom", type="string", length=255, nullable=true)
      */
     private $nom;
 

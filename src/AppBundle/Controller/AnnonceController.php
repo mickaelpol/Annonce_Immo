@@ -98,7 +98,7 @@ class AnnonceController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('admin_annonce_edit', array('id' => $annonce->getId()));
+            return $this->redirectToRoute('admin_annonce_show', array('id' => $annonce->getId()));
         }
 
         return $this->render('annonce/edit.html.twig', array(

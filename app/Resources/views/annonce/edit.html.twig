@@ -3,7 +3,7 @@
 {% block body %}
 
     <div class="row">
-        <h1 class="text-center text-uppercase">Edition de l'annonce {{ annonce.id }}</h1>
+        <h1 class="text-center text-uppercase page-header">Edition de l'annonce {{ annonce.id }}</h1>
     </div>
 
     <div style="height:60px;"></div>
@@ -31,7 +31,16 @@
             {{ form_label(edit_form.typeAnnonce) }}
             {{ form_widget(edit_form.typeAnnonce, {'attr': {"class": "form-control" }}) }}
             
+            
+            <div style="height:20px;"></div>
+            
+            <ul class="files list-unstyled" data-prototype="{{ form_widget(edit_form.files.vars.prototype)|e('html_attr') }}">
+
             {{ form_widget(edit_form.files) }}
+                
+            </ul>
+            
+            <div style="height:20px;"></div>
 
         </div>
         
@@ -47,6 +56,7 @@
             {{ form_label(edit_form.client.telephone) }}
             {{ form_widget(edit_form.client.telephone, {'attr': {"class": "form-control" }}) }}
 
+            
         </div>
     </div>
 
@@ -56,6 +66,7 @@
         <div class="col-lg-5">
             <input class="btn btn-block btn-success" type="submit" value="Editer" />
         </div>
+        {{ form_end(edit_form) }}
         <div class="col-lg-5">
             {{ form_start(delete_form) }}
             <button class="btn btn-danger btn-block" type="submit">

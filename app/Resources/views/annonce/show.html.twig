@@ -1,18 +1,121 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="row">
-        <h1 class="text-center text-uppercase page-header">Annonce</h1>
-    </div>
 
     
     <h3 class="text-center">{{ annonce.titre }}</h3>
-    <table class="table">
+    <table class="table table-bordered">
         <tbody>
-            
-
             <tr>
                 <td>
+                    <a href="#" data-toggle="modal" data-target="#myModal">
+                        {% for entity in annonce.files %}
+                            {% if loop.index == 1 %}
+                                <img class="center-block" src="{{ asset('uploads/images/products/' ~ entity.file) | imagine_filter('my_thumb') }}" alt="{{ entity.nom }}">
+                            {% endif %}
+                        {% endfor %}
+                    </a>
+                    <div style="height:20px;"></div>
+                    <div class="row">
+                        {% for entity in annonce.files %}
+                        <div class="col-sm-6 col-md-4">
+                            <div class="thumbnail">
+                            {% set thumb = {"thumbnail": {"size": [150, 150] }} %}
+                                <img src="{{ asset('uploads/images/products/' ~ entity.file) | imagine_filter('my_thumb', thumb) }}" alt="{{ entity.nom }}">
+                                <div class="caption">
+                                    <h3 class="text-center">{{ entity.nom }}</h3>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </td>
+            </tr>
+            
+            <tr>
+                <td>
+                    <ul class="list-inline">
+                        <li>
+                            <b>Ref de l'annonce :</b>
+                        </li>
+                        <li>
+                            {{ annonce.id }}
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <ul class="list-inline">
+                        <li>
+                            <b>Nombre de pièces :</b>
+                        </li>
+                        <li>
+                            {{ annonce.pieces }}
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <ul class="list-inline">
+                        <li>
+                            <b>Prix :</b>
+                        </li>
+                        <li>
+                            {{ annonce.prix }}
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <ul class="list-inline">
+                        <li>
+                            <b>Description :</b>
+                        </li>
+                        <li>
+                            {{ annonce.description }}
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <ul class="list-inline">
+                        <li>
+                            <b>Propriétaire :</b>
+                        </li>
+                        <li>
+                            {{ annonce.client }}
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <ul class="list-inline">
+                        <li>
+                            <b>N° Téléphone :</b>
+                        </li>
+                        <li>
+                            {{ annonce.client.telephone }}
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    
+    
+    <!-- Modal -->
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+    
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-body">
                     <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                         <!-- Indicators -->
                         <ol class="carousel-indicators">
@@ -25,9 +128,13 @@
                         <div class="carousel-inner" role="listbox">
                     
                             {% for entity in annonce.files %}
-                            {% set runtimeConfig = {"thumbnail": {"size": [900, 900] }} %}
                             <div class="item {% if loop.index == 1 %} active {% endif %}">
-                                <img  alt="{{ entity.nom }}" src="{{ asset('uploads/images/products/' ~ entity.file) | imagine_filter('my_thumb', runtimeConfig) }}" />
+                                {% set rest = {"thumbnail": {"size": [1000, 1000] }} %}
+                                <img alt="{{ entity.nom }}" src="{{ asset('uploads/images/products/' ~ entity.file) | imagine_filter('my_thumb', rest) }}"
+                                />
+                                <div class="carousel-caption">
+                                    <h3>{{ entity.nom }}</h3>
+                                </div>
                             </div>
                             {% endfor %}
                     
@@ -43,36 +150,16 @@
                             <span class="sr-only">Next</span>
                         </a>
                     </div>
-                </td>
-            </tr>
-            
-            <tr>
-                <th>Reference de l'annonce</th>
-                <td>{{ annonce.id }}</td>
-            </tr>
-            <tr>
-                <th>Pieces</th>
-                <td>{{ annonce.pieces }}</td>
-            </tr>
-            <tr>
-                <th>Prix</th>
-                <td>{{ annonce.prix }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ annonce.description }}</td>
-            </tr>
-            <tr>
-                <th>Propriétaire</th>
-                <td>{{ annonce.client }}</td>
-            </tr>
-            <tr>
-                <th>N° Téléphone</th>
-                <td>{{ annonce.client.telephone }}</td>
-            </tr>
-        </tbody>
-    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+    
+        </div>
+    </div>
 
+    <div style="height:120px;"></div>
 
     <div class="row">
         <ul class="list-unstyled">

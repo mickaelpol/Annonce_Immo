@@ -2,7 +2,7 @@
 
 {% block body %}
     <div class="row">
-        <h1 class="text-center text-uppercase">Annonces list</h1>
+        <h1 class="text-center text-uppercase page-header">Liste des annonces</h1>
     </div>
     <div style="height:80px;"></div>
     <div class="row">
@@ -16,35 +16,34 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Titre</th>
-                <th>Photo</th>
-                <th>Pieces</th>
-                <th>Prix</th>
-                <th>Description</th>
-                <th>Type</th>
+                <th class="text-center">Titre</th>
+                <th class="text-center">Photo</th>
+                <th class="text-center">Pieces</th>
+                <th class="text-center">Prix</th>
+                <th class="text-center">Description</th>
+                <th class="text-center">Type</th>
                 {% if is_granted('ROLE_USER') %}
-                    <th>Actions</th>
+                    <th class="text-center">Actions</th>
                 {% endif %}
             </tr>
         </thead>
         <tbody>
         {% for annonce in annonces %}
             <tr>
-                <td><a href="{{ path('admin_annonce_show', { 'id': annonce.id }) }}">{{ annonce.titre }}</a></td>
+                <td class="text-center"><a href="{{ path('admin_annonce_show', { 'id': annonce.id }) }}">{{ annonce.titre }}</a></td>
                 <td>
                 {% for image in annonce.files %}
                     {% if loop.first %}
                         {% set runtimeConfig = {"thumbnail": {"size": [150, 100] }} %}
-                        <img alt="{{ image.nom }}" src="{{ asset('uploads/images/products/' ~ image.file) | imagine_filter('my_thumb', runtimeConfig) }}" />
-                        {% dump(image) %}
+                        <img class="center-block" alt="{{ image.nom }}" src="{{ asset('uploads/images/products/' ~ image.file) | imagine_filter('my_thumb', runtimeConfig) }}" />
                     {% endif %}
                 {% endfor %}
                 </td>
-                <td>{{ annonce.pieces }}</td>
-                <td>{{ annonce.prix }}</td>
-                <td>{{ annonce.description }}</td>
-                <td>{{ annonce.typeAnnonce }}</td>
-                <td>
+                <td class="text-center">{{ annonce.pieces }}</td>
+                <td class="text-center">{{ annonce.prix }} €</td>
+                <td class="text-center">{{ annonce.description|truncate(55, true) }}</td>
+                <td class="text-center">{{ annonce.typeAnnonce }}</td>
+                <td class="text-center">
                     {% if is_granted('ROLE_USER') %}
                         <a class="btn btn-block btn-warning" href="{{ path('admin_annonce_edit', { 'id': annonce.id }) }}">edit</a>
                     {% endif %}
