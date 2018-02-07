@@ -4,6 +4,7 @@
     <div class="row">
         <h1 class="text-center text-uppercase page-header">Liste des annonces</h1>
     </div>
+
     <div style="height:80px;"></div>
     <div class="row">
         {% if is_granted('ROLE_USER') %}
@@ -13,7 +14,7 @@
 
     <div style="height:80px;"></div>
     
-    <table class="table">
+    <table class="table table-bordered table-striped">
         <thead>
             <tr>
                 <th class="text-center">Titre</th>
@@ -43,11 +44,11 @@
                 <td class="text-center">{{ annonce.prix }} €</td>
                 <td class="text-center">{{ annonce.description|truncate(55, true) }}</td>
                 <td class="text-center">{{ annonce.typeAnnonce }}</td>
-                <td class="text-center">
-                    {% if is_granted('ROLE_USER') %}
+                {% if is_granted('ROLE_USER') %}
+                    <td class="text-center">
                         <a class="btn btn-block btn-warning" href="{{ path('admin_annonce_edit', { 'id': annonce.id }) }}">edit</a>
-                    {% endif %}
-                </td>
+                    </td>
+                {% endif %}
             </tr>
         {% endfor %}
         </tbody>

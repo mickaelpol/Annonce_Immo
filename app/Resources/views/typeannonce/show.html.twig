@@ -1,7 +1,71 @@
-{% extends 'base.html.twig' %}
+{% extends 'base.html.twig' %} {% block body %}
+<div class="row">
+    <h1 class="text-center text-uppercase page-header">Type d'annonce {{ typeAnnonce.id }}</h1>
+</div>
+
+<div style="height:80px;"></div>
+
+<div class="row">
+    <table class="table table-bordered table-hover">
+        <tbody>
+            <tr>
+                <th class="text-center">Id</th>
+                <th class="text-center">Nom</th>
+            </tr>
+            <tr>
+                <td class="text-center">{{ typeAnnonce.id }}</td>
+                <td class="text-center">{{ typeAnnonce.nom }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="row">
+    <ul class="list-unstyled">
+        <div class="col-lg-4">
+            <li>
+                <a class="btn btn-default btn-block" href="{{ path('admin_type-annonce_index') }}">
+                    <span class="glyphicon glyphicon-arrow-left"></span>
+                    Retour a la liste des types d'annonces
+                </a>
+            </li>
+        </div>
+        {% if is_granted('ROLE_USER') %}
+        <div class="col-lg-4">
+            <li>
+                <a class="btn btn-warning btn-block" href="{{ path('admin_type-annonce_edit', { 'id': typeAnnonce.id }) }}">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                    Editer
+                </a>
+            </li>
+        </div>
+        <div class="col-lg-4">
+            <li>
+                {{ form_start(delete_form) }}
+                <button class="btn btn-danger btn-block" type="submit">
+                    <span class="glyphicon glyphicon-trash"></span>
+                    Supprimer le type d'annonce
+                </button>
+                {{ form_end(delete_form) }}
+            </li>
+        </div>
+        {% endif %}
+    </ul>
+</div>
+
+<div style="height:80px;"></div>
+
+{% endblock %}
+
+
+
+
+{#{% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Typeannonce</h1>
+    <div class="row">
+        <h1 class="text-center text-uppercase page-header">Type d'annonce {{ typeAnnonce.id }}</h1>
+    </div>
 
     <table>
         <tbody>
@@ -29,4 +93,4 @@
             {{ form_end(delete_form) }}
         </li>
     </ul>
-{% endblock %}
+{% endblock %}#}
