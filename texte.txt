@@ -1,0 +1,7 @@
+Pour le projet annonce immo j'ai choisis le framework symfony, pour avoir un environement de développement déjà mis en place et la facilité d'y greffer des bundles, qui m'ont permis la gestion des images des utilisateurs et du fonctionnement du site dans sa globalité .
+
+Symfony permet de mettre en place un site assez rapidement de part ces bundles justement .
+- Le bundle Vichuploader permet de gerer après son installation rapide , d'uploader des images directement sur le serveur .
+- Le bundle FOSUser permet la gestion d'utilisateus assez rapide à mettre en place et très pratique .
+et pour finir :
+- le bundle LiipImagine qui m'a permis de redimensionner les images uploader et en faire des miniatures très pratique pour afficher des thumbnail et des images tout court avec un ratio de redimensionement qui reste très propre il n'etire pas les photo en fonction de la dimension voulu .

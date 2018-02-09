@@ -16,6 +16,22 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
  */
 class AnnonceController extends Controller
 {
+
+
+    public function searchAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $motsCle = $request->get('motcle');
+
+        $recherche = $em->getRepository('AppBundle:Annonce')->search($motsCle);
+
+        return $this->render('annonce/index.html.twig', array(
+            'recherche' => $recherche,
+        ));
+    }
+    
+    
     /**
      * Lists all annonce entities.
      *

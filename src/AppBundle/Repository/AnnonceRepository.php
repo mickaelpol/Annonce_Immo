@@ -10,4 +10,16 @@ namespace AppBundle\Repository;
  */
 class AnnonceRepository extends \Doctrine\ORM\EntityRepository
 {
+
+    public function search($motsCle)
+    {
+        $query = $this->createQueryBuilder('a')
+            ->where('a.titre like :titre')
+            ->setParameter('titre', $motsCle . "%")
+            ->orderBy("a.titre", "ASC")
+            ->getQuery();
+
+            return $query->getResult();
+    }
+    
 }
